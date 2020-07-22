@@ -102,7 +102,7 @@ def arg_parser():
     parser = argparse.ArgumentParser(description="A simple backend for DVC")
 
     parser.add_argument(
-        "-H", "--host", default="localhost", action="store", type=str, help="Host to serve on"
+        "-H", "--host", default='', action="store", type=str, help="Host to serve on"
     )
     parser.add_argument(
         "-P", "--port", default=4223, action="store", type=int, help="Port to serve on"
@@ -121,7 +121,8 @@ def arg_parser():
 
 def main():
     args = arg_parser().parse_args()
-    addr = ("localhost", args.port)
+    logger.debug(args)
+    addr = (args.host, args.port)
     logger.info("Starting on {}".format(addr))
     httpd = HTTPServer(addr, partial(TestRequestHandler, directory=args.workdir),)
     httpd.serve_forever()
