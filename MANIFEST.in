@@ -1,0 +1,2 @@
+include versioneer.py
+include simple_dvc_server/_version.py
